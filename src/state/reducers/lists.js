@@ -3,15 +3,20 @@ import omit from "lodash/omit";
 import { ADD_LIST, REMOVE_LIST } from "state/actions/lists";
 import { ADD_CARD, REMOVE_CARD } from "state/actions/cards";
 
-const defaultState = {
-    1: {
-        title: "pierwsza",
-        cards: ["b63ge781ge817", "b63ge781ge818", "b63ge781ge819"]
+import { type cardId, listId } from "state/types";
+
+type State = {|
+    +[listId]: {
+        title: string,
+        cards: Array<cardId>
     },
-    2: {
-        title: "druga",
-        cards: ["b63ge781ge8110", "b63ge781ge8111", "b63ge781ge8112"]
-    }
+|}
+
+const defaultState = {
+    'first_list': {
+        title: "First list",
+        cards: ["first_card", "second_card", "third_card"]
+    },
 };
 
 const listsReducer = (state = defaultState, action) => {

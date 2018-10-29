@@ -1,3 +1,5 @@
+// @flow
+
 import omit from "lodash/omit";
 
 import {
@@ -9,20 +11,21 @@ import {
     SET_DESCRIPTION
 } from "state/actions/cards";
 
+import { type cardId } from "state/types";
+
+type State = {|
+    +cardList: {
+        [cardId] : {
+            title: string, description: string
+        }
+    },
+    +selectedCard: cardId | null
+|}
+
 const defaultState = {
     cardList: {
-        b63ge781ge817: { title: "First Card", description: "My description" },
-        b63ge781ge818: { title: "Second Card", description: "My description" },
-        b63ge781ge819: { title: "Third Card", description: "My description" },
-        b63ge781ge8110: {
-            title: "another Card",
-            description: "My description"
-        },
-        b63ge781ge8111: {
-            title: "yet another Card",
-            description: "My description"
-        },
-        b63ge781ge8112: { title: "my Card", description: "My description" }
+        first_card: { title: "First Card", description: "Description of the first card" },
+        second_card: { title: "Second Card", description: "Description of the second card" }
     },
     selectedCard: null
 };

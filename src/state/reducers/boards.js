@@ -1,15 +1,24 @@
+// @flow
+
 import { ADD_LIST, REMOVE_LIST } from "state/actions/lists";
 
-const defaultState = {
+import { type boardId, listId } from "state/types";
+
+type State = {|
+    +boardList: { [boardId]: { lists: Array<listId> } },
+    +currentBoardId: boardId
+|};
+
+const defaultState: State = {
     boardList: {
-        1: {
-            lists: [1, 2]
+        first_board: {
+            lists: ["first_list"]
         }
     },
-    currentBoardId: 1
+    currentBoardId: "first_board"
 };
 
-const boardReducer = (state = defaultState, action) => {
+const boardReducer = ((state = defaultState): State, action) => {
     switch (action.type) {
         case ADD_LIST: {
             const { boardId, listId } = action.payload;
