@@ -1,0 +1,9 @@
+- Redux
+- ESLint
+- Flow
+- Prettier
+- Tests
+- ? Cypress
+- deployment
+- ? CI
+- jesli nie ma zadnego boardu w loca storage automatyczne utworzenie nowego

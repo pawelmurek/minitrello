@@ -1,0 +1,4 @@
+{
+    "typescript.autoImportSuggestions.enabled": false,
+    "javascript.suggestionActions.enabled": false
+}
