@@ -2,12 +2,16 @@
 
 import { ADD_LIST, REMOVE_LIST } from "state/actions/lists";
 
-import { type boardId, listId } from "state/types";
+import type { BoardId, ListId } from "state/types";
 
-type State = {|
-    +boardList: { [boardId]: { lists: Array<listId> } },
-    +currentBoardId: boardId
+import type { AddListAction, RemoveListAction } from "state/actions/lists";
+
+export type State = {|
+    +boardList: { [BoardId]: { lists: ListId[] } },
+    +currentBoardId: BoardId
 |};
+
+type Action = AddListAction | RemoveListAction;
 
 const defaultState: State = {
     boardList: {
@@ -18,7 +22,7 @@ const defaultState: State = {
     currentBoardId: "first_board"
 };
 
-const boardReducer = ((state = defaultState): State, action) => {
+const boardReducer = (state: State = defaultState, action: Action) => {
     switch (action.type) {
         case ADD_LIST: {
             const { boardId, listId } = action.payload;

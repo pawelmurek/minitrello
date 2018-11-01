@@ -11,26 +11,50 @@ import {
     SET_DESCRIPTION
 } from "state/actions/cards";
 
-import { type cardId } from "state/types";
+import type { CardId } from "state/types";
 
-type State = {|
+import type {
+    SelectCardAction,
+    AddCardAction,
+    RemoveCardAction,
+    RemoveCardsAction,
+    SetTitleAction,
+    SetDescriptionAction
+} from "state/actions/cards";
+
+export type State = {|
     +cardList: {
-        [cardId] : {
-            title: string, description: string
+        [CardId]: {
+            title: string,
+            description: string
         }
     },
-    +selectedCard: cardId | null
-|}
+    +selectedCard: CardId | null
+|};
+
+type Action =
+    | SelectCardAction
+    | AddCardAction
+    | RemoveCardAction
+    | RemoveCardsAction
+    | SetTitleAction
+    | SetDescriptionAction;
 
 const defaultState = {
     cardList: {
-        first_card: { title: "First Card", description: "Description of the first card" },
-        second_card: { title: "Second Card", description: "Description of the second card" }
+        first_card: {
+            title: "First Card",
+            description: "Description of the first card"
+        },
+        second_card: {
+            title: "Second Card",
+            description: "Description of the second card"
+        }
     },
     selectedCard: null
 };
 
-const cardsReducer = (state = defaultState, action) => {
+const cardsReducer = (state: State = defaultState, action: Action) => {
     switch (action.type) {
         case SELECT_CARD: {
             return { ...state, selectedCard: action.payload };

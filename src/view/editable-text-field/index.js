@@ -1,53 +1,29 @@
+// @flow
+
 import React, { Component } from "react";
-import styled from "styled-components";
 
-const Wrapper = styled.span`
-    display: inline-block;
-    width: ${props => (props.isEditing ? "100%" : "auto")};
-    font-size: ${props => props.fontSize}px;
-`;
+import { Wrapper, Text, Input, TextArea } from "./styled";
 
-const Text = styled.span`
-    display: inline-block;
-    min-width: 50px;
-    min-height: ${props => props.fontSize}px;
-    padding: 5px;
-    margin: 5px 0;
-    cursor: pointer;
-    &:hover {
-        background-color: rgba(127, 127, 127, 0.1);
-    }
-`;
+type Props = {
+    text: string,
+    fontSize: number,
+    isSingleLine: boolean,
+    onChange: string => void
+};
 
-const commonEditStyle = `
-    font-size: 16px;
-    width: 100%;
-    box-sizing: border-box;
-    border-width: 0;
-    padding: 5px;
-    margin: 5px 0;
-`;
+type State = {
+    text: string,
+    isEditing: boolean
+};
 
-const Input = styled.input`
-    ${commonEditStyle};
-    font-size: ${props => props.fontSize}px;
-`;
-
-const TextArea = styled.textarea`
-    ${commonEditStyle};
-    font-size: ${props => props.fontSize}px;
-    height: 50px;
-    font-family: "Helvetica", "Arial", sans-serif;
-`;
-
-class EditableTextField extends Component {
+class EditableTextField extends Component<Props, State> {
     static defaultProps = {
         fontSize: 16,
         isSingleLine: true,
         onChange: () => {}
     };
 
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         this.state = {
@@ -55,6 +31,10 @@ class EditableTextField extends Component {
             isEditing: false
         };
     }
+
+    nodeRef: ?HTMLElement;
+
+    inputRef: ?HTMLElement;
 
     componentDidMount() {
         document.addEventListener("mousedown", this.onDocumentClick);
@@ -68,13 +48,17 @@ class EditableTextField extends Component {
         this.inputRef && this.inputRef.focus();
     }
 
-    onDocumentClick = event => {
-        if (this.nodeRef && !this.nodeRef.contains(event.target)) {
+    onDocumentClick = (event: MouseEvent) => {
+        if (
+            this.nodeRef &&
+            event.target instanceof Node &&
+            !this.nodeRef.contains(event.target)
+        ) {
             this.onSave();
         }
     };
 
-    onKeyPress = event => {
+    onKeyPress = (event: SyntheticKeyboardEvent<any>) => {
         if (event.key === "Enter") {
             this.onSave();
         }
@@ -91,7 +75,7 @@ class EditableTextField extends Component {
         const { isSingleLine, fontSize } = this.props;
         const { isEditing, text } = this.state;
 
-        const EditComponent = isSingleLine ? Input : TextArea;
+        const EditComponent: any = isSingleLine ? Input : TextArea;
 
         return (
             <Wrapper
@@ -105,7 +89,7 @@ class EditableTextField extends Component {
                         type="text"
                         ref={ref => (this.inputRef = ref)}
                         value={text}
-                        onChange={event =>
+                        onChange={(event: SyntheticInputEvent<any>) =>
                             this.setState({ text: event.target.value })
                         }
                         onKeyPress={this.onKeyPress}

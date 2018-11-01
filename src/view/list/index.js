@@ -1,6 +1,7 @@
+// @flow
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import { removeList } from "state/actions/lists";
 import { removeCards } from "state/actions/cards";
@@ -10,42 +11,19 @@ import Card from "view/card";
 import AddCard from "view/add-card";
 import RemoveImage from "view/img/remove.svg";
 
-const ListWrapper = styled.div`
-    position: relative;
-    width: 400px;
-    min-height: 50px;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #cfd8dc;
-    &:not(:last-child) {
-        margin-right: 20px;
-    }
-    & .add-card,
-    & .remove-list {
-        visibility: hidden;
-    }
-    &:hover .add-card,
-    &:hover .remove-list {
-        visibility: visible;
-    }
-`;
+import { ListWrapper, ListTitle, RemoveIcon } from "./styled";
 
-const ListTitle = styled.h4`
-    text-align: center;
-    margin: 10px 0;
-`;
+import type { CardId, ListId, BoardId } from "state/types";
 
-const RemoveIcon = styled.img`
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
-    opacity: 0.7;
-    cursor: pointer;
-`;
+type Props = {
+    title: string,
+    cards: CardId[],
+    id: ListId,
+    boardId: BoardId,
+    removeList: (ListId, BoardId, CardId[]) => void
+};
 
-class ListComponent extends Component {
+class ListComponent extends Component<Props> {
     render() {
         const { title, cards, id: listId, boardId } = this.props;
 

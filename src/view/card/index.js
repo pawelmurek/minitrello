@@ -1,6 +1,7 @@
+// @flow
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import {
     selectCard,
@@ -13,46 +14,34 @@ import { getTitle, getDescription, isSelected } from "state/selectors/cards";
 import EditableTextField from "view/editable-text-field";
 import RemoveImage from "view/img/remove.svg";
 
-const CardWrapper = styled.div`
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 15px 0;
-    padding: 10px;
-    min-height: 20px;
-    border-radius: 5px;
-    background-color: ${props => (props.isSelected ? "#B2EBF2" : "#ECEFF1")};
-    box-shadow: 0px 1px 3px 1px rgba(173, 173, 173, 1);
-    cursor: ${props => (props.isSelected ? "normal" : "pointer")};
-`;
+import { CardWrapper, Title, RemoveIcon } from "./styled";
 
-const Title = styled.div`
-    padding: 5px;
-    margin: 5px 0;
-`;
+import type { CardId, ListId } from "state/types";
 
-const RemoveIcon = styled.img`
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
-    opacity: 0.7;
-    cursor: pointer;
-`;
+type Props = {
+    id: CardId,
+    listId: ListId,
+    title: string,
+    description: string,
+    isSelected: boolean,
+    selectCard: CardId => void,
+    setTitle: (CardId, string) => void,
+    setDescription: (CardId, string) => void,
+    removeCard: (CardId, ListId) => void
+};
 
-class CardComponent extends Component {
+class CardComponent extends Component<Props> {
     static defaultProps = {
         listId: ""
     };
 
-    setTitle = text => {
+    setTitle = (text: string) => {
         !text && !this.props.description
             ? this.props.removeCard(this.props.id, this.props.listId)
             : this.props.setTitle(this.props.id, text);
     };
 
-    setDescription = text => {
+    setDescription = (text: string) => {
         !text && !this.props.title
             ? this.props.removeCard(this.props.id, this.props.listId)
             : this.props.setDescription(this.props.id, text);

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./index.css";
 
 import { getCurrentBoardId } from "state/selectors/boards";
 
 import Board from "view/board";
 
-class App extends Component {
-    static defaultProps = {
-        onClick: () => {}
-    };
+import type { BoardId } from "state/types";
 
+type Props = {
+    boardId: BoardId
+};
+
+class App extends Component<Props> {
     render() {
         const { boardId } = this.props;
 
