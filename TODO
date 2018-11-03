@@ -1,9 +1,6 @@
-- Redux
-- ESLint
-- Flow
-- Prettier
-- Tests
-- ? Cypress
+- Tests (Reducers, editable-text-field)
+- DnD
 - deployment
-- ? CI
-- jesli nie ma zadnego boardu w loca storage automatyczne utworzenie nowego
+- ? dodawanie nowych boardow
+- ? react Router
+- ? local storage + redux observable
