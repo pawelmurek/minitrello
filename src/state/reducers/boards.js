@@ -13,7 +13,7 @@ export type State = {|
 
 type Action = AddListAction | RemoveListAction;
 
-const defaultState: State = {
+export const defaultState: State = {
     boardList: {
         first_board: {
             lists: ["first_list"]

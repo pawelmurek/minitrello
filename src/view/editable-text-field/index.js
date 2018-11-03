@@ -18,6 +18,7 @@ type State = {
 
 class EditableTextField extends Component<Props, State> {
     static defaultProps = {
+        text: "",
         fontSize: 16,
         isSingleLine: true,
         onChange: () => {}
