@@ -1,14 +1,19 @@
 // @flow
 
 import omit from "lodash/omit";
+import moveItem from "array-move-item";
 
-import { ADD_LIST, REMOVE_LIST } from "state/actions/lists";
+import { ADD_LIST, REMOVE_LIST, MOVE_CARD } from "state/actions/lists";
 import { ADD_CARD, REMOVE_CARD } from "state/actions/cards";
 
 import type { CardId, ListId } from "state/types";
 
 import type { AddCardAction, RemoveCardAction } from "state/actions/cards";
-import type { AddListAction, RemoveListAction } from "state/actions/lists";
+import type {
+    AddListAction,
+    RemoveListAction,
+    MoveCardAction
+} from "state/actions/lists";
 
 type List = {
     title: string,
@@ -23,7 +28,8 @@ type Action =
     | AddCardAction
     | RemoveCardAction
     | AddListAction
-    | RemoveListAction;
+    | RemoveListAction
+    | MoveCardAction;
 
 const firstListId: ListId = "first_list";
 const defaultState: State = {
@@ -58,6 +64,21 @@ const listsReducer = (state: State = defaultState, action: Action) => {
             const cards = state[listId].cards.filter(card => card !== cardId);
             const list = { ...state[listId], cards };
             return { ...state, [listId]: list };
+        }
+
+        case MOVE_CARD: {
+            const card = action.payload.card;
+            const index = action.payload.index;
+            const listId = action.payload.listId;
+            const cards = state[listId].cards;
+
+            return {
+                ...state,
+                [listId]: {
+                    ...state[listId],
+                    cards: moveItem(cards, cards.indexOf(card), index)
+                }
+            };
         }
 
         default:

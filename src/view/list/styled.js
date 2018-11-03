@@ -7,6 +7,9 @@ export const ListWrapper = styled.div`
     border-radius: 5px;
     padding: 10px;
     background-color: #cfd8dc;
+    & .card-wrapper {
+        padding-top: 15px;
+    }
     &:not(:last-child) {
         margin-right: 20px;
     }

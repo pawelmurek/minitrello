@@ -1,6 +1,6 @@
 // @flow
 
-import type { ListId, BoardId } from "state/types";
+import type { CardId, ListId, BoardId } from "state/types";
 
 export const ADD_LIST: "ADD_LIST" = "ADD_LIST";
 export type AddListAction = {
@@ -26,5 +26,21 @@ export const removeList = (
     return {
         type: REMOVE_LIST,
         payload: { listId, boardId }
+    };
+};
+
+export const MOVE_CARD: "MOVE_CARD" = "MOVE_CARD";
+export type MoveCardAction = {
+    type: typeof MOVE_CARD,
+    payload: { listId: ListId, card: CardId, index: number }
+};
+export const moveCard = (
+    listId: ListId,
+    card: CardId,
+    index: number
+): MoveCardAction => {
+    return {
+        type: MOVE_CARD,
+        payload: { listId, card, index }
     };
 };

@@ -12,6 +12,7 @@ export const Text = styled.span`
     min-height: ${props => props.fontSize}px;
     padding: 5px;
     margin: 5px 0;
+    color: ${props => (props.showPlaceholder ? "#777" : "#000")};
     cursor: pointer;
     &:hover {
         background-color: rgba(127, 127, 127, 0.1);

@@ -1,6 +1,6 @@
-- DnD
-- deployment
 - ograniczenia w nazwie kart (0 < liczba znakow <= 30)
 - ? dodawanie nowych boardow
 - ? react Router
 - ? local storage + redux observable
+- final testing
+- check specification

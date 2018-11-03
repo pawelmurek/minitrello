@@ -6,6 +6,7 @@ import { Wrapper, Text, Input, TextArea } from "./styled";
 
 type Props = {
     text: string,
+    placeholder: string,
     fontSize: number,
     isSingleLine: boolean,
     onChange: string => void
@@ -19,6 +20,7 @@ type State = {
 class EditableTextField extends Component<Props, State> {
     static defaultProps = {
         text: "",
+        placeholder: "",
         fontSize: 16,
         isSingleLine: true,
         onChange: () => {}
@@ -73,7 +75,7 @@ class EditableTextField extends Component<Props, State> {
     };
 
     render() {
-        const { isSingleLine, fontSize } = this.props;
+        const { isSingleLine, fontSize, placeholder } = this.props;
         const { isEditing, text } = this.state;
 
         const EditComponent: any = isSingleLine ? Input : TextArea;
@@ -97,7 +99,12 @@ class EditableTextField extends Component<Props, State> {
                         fontSize={fontSize}
                     />
                 ) : (
-                    <Text fontSize={fontSize}>{text}</Text>
+                    <Text
+                        fontSize={fontSize}
+                        showPlaceholder={placeholder && !text}
+                    >
+                        {text || placeholder}
+                    </Text>
                 )}
             </Wrapper>
         );

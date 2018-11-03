@@ -75,6 +75,7 @@ class CardComponent extends Component<Props> {
                         <div>
                             <EditableTextField
                                 text={description}
+                                placeholder="Add description"
                                 fontSize={13}
                                 isSingleLine={false}
                                 onChange={this.setDescription}
