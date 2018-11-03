@@ -8,6 +8,7 @@ type Props = {
     text: string,
     placeholder: string,
     fontSize: number,
+    maxLength: number | void,
     isSingleLine: boolean,
     onChange: string => void
 };
@@ -22,6 +23,7 @@ class EditableTextField extends Component<Props, State> {
         text: "",
         placeholder: "",
         fontSize: 16,
+        maxLength: undefined,
         isSingleLine: true,
         onChange: () => {}
     };
@@ -68,14 +70,14 @@ class EditableTextField extends Component<Props, State> {
     };
 
     onSave = () => {
-        if (this.state.isEditing) {
+        if (this.state.isEditing && this.state.text) {
             this.setState({ isEditing: false });
             this.props.onChange && this.props.onChange(this.state.text);
         }
     };
 
     render() {
-        const { isSingleLine, fontSize, placeholder } = this.props;
+        const { isSingleLine, fontSize, maxLength, placeholder } = this.props;
         const { isEditing, text } = this.state;
 
         const EditComponent: any = isSingleLine ? Input : TextArea;
@@ -92,6 +94,7 @@ class EditableTextField extends Component<Props, State> {
                         type="text"
                         ref={ref => (this.inputRef = ref)}
                         value={text}
+                        maxLength={maxLength}
                         onChange={(event: SyntheticInputEvent<any>) =>
                             this.setState({ text: event.target.value })
                         }

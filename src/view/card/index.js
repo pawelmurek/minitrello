@@ -60,7 +60,7 @@ class CardComponent extends Component<Props> {
         return (
             <CardWrapper isSelected={isSelected} onClick={() => selectCard(id)}>
                 {isSelected ? (
-                    <>
+                    <div style={{ marginRight: "20px" }}>
                         <RemoveIcon
                             src={RemoveImage}
                             alt="Delete card"
@@ -69,6 +69,7 @@ class CardComponent extends Component<Props> {
                         <div>
                             <EditableTextField
                                 text={title}
+                                maxLength={30}
                                 onChange={this.setTitle}
                             />
                         </div>
@@ -81,7 +82,7 @@ class CardComponent extends Component<Props> {
                                 onChange={this.setDescription}
                             />
                         </div>
-                    </>
+                    </div>
                 ) : (
                     <Title>{title}</Title>
                 )}
