@@ -6,3 +6,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: #1a2c8b;
+}

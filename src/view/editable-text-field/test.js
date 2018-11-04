@@ -6,7 +6,7 @@ import { Input, TextArea } from "./styled";
 
 describe("Editable Text Field", () => {
     it("should use Input edit component", () => {
-        const wrapper = shallow(<EditableTextField isSingleLine />);
+        const wrapper = shallow(<EditableTextField isSingleLine text="test" />);
 
         wrapper.simulate("click");
         expect(wrapper.find(Input).length).toEqual(1);
@@ -14,7 +14,9 @@ describe("Editable Text Field", () => {
     });
 
     it("should use TextArea edit component", () => {
-        const wrapper = shallow(<EditableTextField isSingleLine={false} />);
+        const wrapper = shallow(
+            <EditableTextField isSingleLine={false} text="test" />
+        );
 
         wrapper.simulate("click");
         expect(wrapper.find(TextArea).length).toEqual(1);
@@ -22,7 +24,7 @@ describe("Editable Text Field", () => {
     });
 
     it("should change edit mode after click", () => {
-        const wrapper = shallow(<EditableTextField />);
+        const wrapper = shallow(<EditableTextField text="test" />);
 
         wrapper.simulate("click");
         expect(wrapper.state().isEditing).toEqual(true);

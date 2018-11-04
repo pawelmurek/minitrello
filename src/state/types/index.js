@@ -8,6 +8,8 @@ export type BoardId = string;
 export type ListId = string;
 export type CardId = string;
 
+export type Board = { id: BoardId, name: string };
+
 export type AppState = {
     cards: CardsState,
     lists: ListsState,

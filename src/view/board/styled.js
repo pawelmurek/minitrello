@@ -6,7 +6,7 @@ export const BoardWrapper = styled.div`
     margin: 25px;
 `;
 
-export const AddBoard = styled.div`
+export const AddList = styled.div`
     font-size: 22px;
     font-weight: bold;
     padding: 10px;
@@ -17,4 +17,11 @@ export const AddBoard = styled.div`
         background-color: rgba(127, 127, 127, 0.25);
     }
     cursor: pointer;
+`;
+
+export const LinkWrapper = styled.div`
+    margin: 15px 25px;
+    & a {
+        text-decoration: none;
+    }
 `;

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { getCurrentBoardId } from "state/selectors/boards";
-
+import Boards from "view/boards";
 import Board from "view/board";
 
 import type { BoardId } from "state/types";
@@ -11,17 +10,15 @@ type Props = {
     boardId: BoardId
 };
 
-class App extends Component<Props> {
+export default class App extends Component<Props> {
     render() {
-        const { boardId } = this.props;
-
-        return <Board id={boardId} />;
+        return (
+            <Router>
+                <>
+                    <Route exact path="/" component={Boards} />
+                    <Route exact path="/:id" component={Board} />
+                </>
+            </Router>
+        );
     }
 }
-
-export default connect(
-    state => ({
-        boardId: getCurrentBoardId(state)
-    }),
-    {}
-)(App);

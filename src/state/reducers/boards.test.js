@@ -1,6 +1,7 @@
 import boardReducer from "./boards";
 import { defaultState } from "./boards";
 
+import { ADD_BOARD } from "state/actions/boards";
 import { ADD_LIST, REMOVE_LIST } from "state/actions/lists";
 
 describe("Boards reducer", () => {
@@ -8,6 +9,29 @@ describe("Boards reducer", () => {
         const state = boardReducer(undefined, {});
 
         expect(state).toEqual(defaultState);
+    });
+
+    it("should return correct state for ADD_BOARD action", () => {
+        const action = {
+            type: ADD_BOARD,
+            payload: { id: "second_board", name: "Second Board" }
+        };
+
+        const state = boardReducer(undefined, action);
+
+        const expectedState = {
+            first_board: {
+                name: "First Board",
+                lists: ["first_list"]
+            },
+            second_board: {
+                name: "Second Board",
+                lists: []
+            },
+            boardList: ["first_board", "second_board"]
+        };
+
+        expect(state).toEqual(expectedState);
     });
 
     it("should return correct state for ADD_LIST action", () => {
@@ -19,12 +43,11 @@ describe("Boards reducer", () => {
         const state = boardReducer(undefined, action);
 
         const expectedState = {
-            boardList: {
-                first_board: {
-                    lists: ["first_list", "another_list"]
-                }
+            first_board: {
+                name: "First Board",
+                lists: ["first_list", "another_list"]
             },
-            currentBoardId: "first_board"
+            boardList: ["first_board"]
         };
 
         expect(state).toEqual(expectedState);
@@ -39,12 +62,11 @@ describe("Boards reducer", () => {
         const state = boardReducer(undefined, action);
 
         const expectedState = {
-            boardList: {
-                first_board: {
-                    lists: []
-                }
+            first_board: {
+                name: "First Board",
+                lists: []
             },
-            currentBoardId: "first_board"
+            boardList: ["first_board"]
         };
 
         expect(state).toEqual(expectedState);
